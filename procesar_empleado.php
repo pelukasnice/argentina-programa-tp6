@@ -29,6 +29,15 @@ class Persona {
       $diferencia = $fecha_actual->diff($fecha_nacimiento);
       return $diferencia->y;
     }
+    public function imprimirObjeto() {
+      $html = "<h2>Datos del Postulante</h2>";
+      $html .= "<p>Nombre: $this->nombre</p>";
+      $html .= "<p>Fecha de Nacimiento: $this->fecha_nacimiento</p>";
+      $html .= "<p>Dirección: $this->direccion</p>";
+      $html .= "<p>Sexo: $this->sexo</p>";
+      $html .= "<p>Edad: " . $this->calcularEdad() . "</p>";
+      return $html;
+    }
   }
   
   class Empleado extends Persona {
@@ -55,6 +64,17 @@ class Persona {
       foreach ($puestos as $puesto) {
         echo $puesto . "<br>";
       }
+    }
+    public function imprimirObjeto() {
+      $html = "<h2>Datos del Empleado</h2>";
+      $html .= "<p>Nombre: $this->nombre</p>";
+      $html .= "<p>Fecha de Nacimiento: $this->fecha_nacimiento</p>";
+      $html .= "<p>Dirección: $this->direccion</p>";
+      $html .= "<p>Sexo: $this->sexo</p>";
+      $html .= "<p>Disponibilidad: $this->disponibilidad</p>";
+      $html .= "<p>Puesto: $this->puesto</p>";
+      $html .= "<p>Antigüedad: " . $this->calcularAntiguedad() . " años</p>";
+      return $html;
     }
   }
   
@@ -123,7 +143,38 @@ class Persona {
       return $sueldo;
     }
 }
-  
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $nombre = $_POST['nombre'];
+  $fecha_nacimiento = $_POST['fecha_nacimiento'];
+  $direccion = $_POST['direccion'];
+  $sexo = $_POST['sexo'];
+  $disponibilidad = $_POST['disponibilidad'];
+  $puesto = $_POST['puesto'];
+  $fecha_ingreso = $_POST['ingreso'];
+
+  // Verifica si es un empleado o un postulante
+  if (isset($_POST['disponibilidad']) && isset($_POST['puesto'])) {
+    // Es un empleado
+    $empleado = new Empleado($nombre, $fecha_nacimiento, $direccion, $sexo, $disponibilidad, $puesto, $fecha_ingreso);
+
+    // Imprimir detalles del empleado
+    echo "<div class='persona_container card'>";
+    echo $empleado->imprimirObjeto();
+    echo "</div>";
+  } else {
+    // Es un postulante
+    $postulante = new Postulante($nombre, $fecha_nacimiento, $direccion, $sexo);
+
+    // Imprimir detalles del postulante
+    echo "<div class='persona_container card'>";
+    echo $postulante->imprimirObjeto();
+    echo "</div>";
+  }
+
+ 
+}
+
   // Crear un empleado informático con 10 aplicaciones
   $empleadoInformatico = new EmpleadoInformatico("Nombre del empleado", 10);
   
