@@ -21,15 +21,16 @@
         </div>
     </header>
 
-<div class="form-container">
+    <<div class="form-container">
+    <div class="form-container">
     <form action="procesar_empleado.php" method="POST" enctype="multipart/form-data">
         <div class="contenedor-form">
             
             <label for="nombre">Nombre y Apellido:</label>
-                <input type="text" id="nombre" name="nombre" required><br><br>
+            <input type="text" id="nombre" name="nombre" required><br><br>
 
             <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br><br>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br><br>
 
             <label for="direccion">Dirección:</label>
             <input type="text" id="direccion" name="direccion" required><br><br>
@@ -49,25 +50,28 @@
                 <option value="mediotiempo">Medio Tiempo</option>
             </select><br><br>
 
-            <label for="puesto">Puesto:</label>
-            <select id="puesto" name="puesto" required>
+            <label for="clase">Puesto:</label>
+            <select id="clase" name="clase" required>
                 <option value="">--Seleccionar--</option>
                 <option value="informatica">Informática</option>
                 <option value="contable">Contable</option>
                 <option value="rrhh">RRHH</option>
             </select><br><br>
 
-            <label for="fecha_nacimiento">Fecha de Ingreso:</label>
-                <input type="date"  name="ingreso" required><br><br>
+            <label for="ingreso">Fecha de Ingreso:</label>
+            <input type="date" id="ingreso" name="ingreso" required><br><br>
             
-                <p>>>Ingresar cantidad de proyecto, aplicaciones o expedientes segun corresponda<<</p>
-            <label for="numero">Calculo sueldo</label>
-                <input type="number" id="sueldo" name="sueldo" required>
-
-
-                <input class="enviar" type="submit" value="Enviar">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" required><br><br>
+                
+            <input class="enviar" type="submit" value="Enviar">
         </div>
     </form>
+</div>
+
+</div>
+
+
     
 </div>
 </body>

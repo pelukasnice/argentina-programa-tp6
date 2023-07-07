@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+<header class="container">
+        <div class="flex-container">
+            <div  class="item">
+                <img src="img/unju-logo.png" alt="">
+            </div>
+            <div id="title">
+                <h3>TP N°6 - Diego Olguin </h3>
+            </div>
+            <div id="argpro">
+                <img src="img/arg programa.png" alt="">
+            </div>
+        </div>
+    </header>
+
 <div class="form-container">
-    <form action="./pages/empleados.php" method="POST" enctype="multipart/form-data">
+    <form action="procesar_empleado.php" method="POST" enctype="multipart/form-data">
         <div class="contenedor-form">
             
             <label for="nombre">Nombre y Apellido:</label>
@@ -42,12 +57,14 @@
                 <option value="rrhh">RRHH</option>
             </select><br><br>
 
-            <label for="cv">Cargar CV:</label>
-                <input type="file" id="cv" name="cv" accept=".pdf, .doc, .jpg" required><br><br>
-
-                <input type="submit" value="Enviar">
+            <label for="fecha_nacimiento">Fecha de Ingreso:</label>
+                <input type="date"  name="ingreso" required><br><br>
+            
+                
+                <input class="enviar" type="submit" value="Enviar">
         </div>
     </form>
+    
 </div>
 </body>
 </html>

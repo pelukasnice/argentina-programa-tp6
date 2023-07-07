@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 <?php
 
 class Persona {
@@ -20,18 +12,27 @@ class Persona {
       $this->direccion = $direccion;
       $this->sexo = $sexo;
     }
+  }
   
+  class Postulante extends Persona {
+    public function calcularEdad() {
+      $fecha_actual = new DateTime();
+      $fecha_nacimiento = new DateTime($this->fecha_nacimiento);
+      $diferencia = $fecha_actual->diff($fecha_nacimiento);
+      return $diferencia->y;
+    }
     public function imprimirObjeto() {
-      $html = "<h2>Datos de la Persona</h2>";
+      $html = "<h2>Datos del Postulante</h2>";
       $html .= "<p>Nombre: $this->nombre</p>";
       $html .= "<p>Fecha de Nacimiento: $this->fecha_nacimiento</p>";
       $html .= "<p>Dirección: $this->direccion</p>";
       $html .= "<p>Sexo: $this->sexo</p>";
+      $html .= "<p>Edad: " . $this->calcularEdad() . "</p>";
       return $html;
     }
-}
-
-class Empleado extends Persona {
+  }
+  
+  class Empleado extends Persona {
     protected $disponibilidad;
     protected $puesto;
     protected $fecha_ingreso;
@@ -56,17 +57,20 @@ class Empleado extends Persona {
         echo $puesto . "<br>";
       }
     }
-  
     public function imprimirObjeto() {
-      $html = parent::imprimirObjeto();
+      $html = "<h2>Datos del Empleado</h2>";
+      $html .= "<p>Nombre: $this->nombre</p>";
+      $html .= "<p>Fecha de Nacimiento: $this->fecha_nacimiento</p>";
+      $html .= "<p>Dirección: $this->direccion</p>";
+      $html .= "<p>Sexo: $this->sexo</p>";
       $html .= "<p>Disponibilidad: $this->disponibilidad</p>";
       $html .= "<p>Puesto: $this->puesto</p>";
       $html .= "<p>Antigüedad: " . $this->calcularAntiguedad() . " años</p>";
       return $html;
     }
-}
-
-class EmpleadoInformatico extends Empleado {
+  }
+  
+  class EmpleadoInformatico extends Empleado {
     private $cantidadAplicaciones;
     private $basico = 200000;
   
@@ -86,9 +90,9 @@ class EmpleadoInformatico extends Empleado {
   
       return $sueldo;
     }
-}
-
-class EmpleadoRRHH extends Empleado {
+  }
+  
+  class EmpleadoRRHH extends Empleado {
     private $cantidadProyectos;
     private $basico = 300000;
   
@@ -108,9 +112,9 @@ class EmpleadoRRHH extends Empleado {
   
       return $sueldo;
     }
-}
-
-class EmpleadoContable extends Empleado {
+  }
+  
+  class EmpleadoContable extends Empleado {
     private $cantidadExpedientes;
     private $basico = 100000;
   
@@ -138,11 +142,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $direccion = $_POST['direccion'];
   $sexo = $_POST['sexo'];
   $disponibilidad = $_POST['disponibilidad'];
-  $puesto = $_POST['clase'];
+  $puesto = $_POST['puesto'];
   $fecha_ingreso = $_POST['ingreso'];
 
   // Verifica si es un empleado o un postulante
-  if (isset($_POST['disponibilidad']) && isset($_POST['clase'])) {
+  if (isset($_POST['disponibilidad']) && isset($_POST['puesto'])) {
     // Es un empleado
     $empleado = new Empleado($nombre, $fecha_nacimiento, $direccion, $sexo, $disponibilidad, $puesto, $fecha_ingreso);
 
@@ -152,50 +156,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "</div>";
   } else {
     // Es un postulante
-    $postulante = new Empleado($nombre, $fecha_nacimiento, $direccion, $sexo, null, null, null);
+    $postulante = new Postulante($nombre, $fecha_nacimiento, $direccion, $sexo);
 
     // Imprimir detalles del postulante
     echo "<div class='persona_container card'>";
     echo $postulante->imprimirObjeto();
     echo "</div>";
   }
+// Verificar si se ha enviado el formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Obtener los valores ingresados
+  $clase = $_POST['clase'];
+  $cantidad = $_POST['cantidad'];
 
-  // Verificar si se ha enviado el formulario para el cálculo del sueldo
-  if (isset($_POST['clase']) && isset($_POST['cantidad'])) {
-    $clase = $_POST['clase'];
-    $cantidad = $_POST['cantidad'];
-
-    // Crear una instancia del empleado correspondiente según la clase seleccionada
-    $empleado = null;
-    switch (strtolower($clase)) {
-      case 'informatica':
-        $empleado = new EmpleadoInformatico($nombre, $cantidad);
-        break;
-      case 'rrhh':
-        $empleado = new EmpleadoRRHH($nombre, $cantidad);
-        break;
-      case 'contable':
-        $empleado = new EmpleadoContable($nombre, $cantidad);
-        break;
-      default:
-        // Clase de empleado no válida
-        echo "Clase de empleado no válida";
-        exit;
-    }
-
-    // Calcular el sueldo
-    $sueldo = $empleado->calcularSueldo();
-
-    // Mostrar el resultado
-    echo "El sueldo del empleado es: " . $sueldo;
+  
+  // Crear una instancia del empleado correspondiente según la clase seleccionada
+  $empleado = null;
+  switch ($clase) {
+    case 'informatico':
+      $empleado = new EmpleadoInformatico("Nombre del Empleado", $cantidad);
+      break;
+    case 'rrhh':
+      $empleado = new EmpleadoRRHH("Nombre del Empleado", $cantidad);
+      break;
+    case 'contable':
+      $empleado = new EmpleadoContable("Nombre del Empleado", $cantidad);
+      break;
+    default:
+      // Clase de empleado no válida
+      echo "Clase de empleado no válida";
+      exit;
   }
-}
-?>
-
-
-  
  
+}
+}
+$sueldo = $empleado->calcularSueldo();
+
+  // Mostrar el resultado
+  echo "El sueldo del empleado es: " . $sueldo;
+ /* // Crear un empleado informático con 10 aplicaciones
+  $empleadoInformatico = new EmpleadoInformatico("Nombre del empleado", 10);
   
-    
-</body>
-</html>
+  // Calcular y mostrar el sueldo del empleado informático
+  echo "Sueldo del empleado informático: $" . $empleadoInformatico->calcularSueldo();*/
+  ?>
