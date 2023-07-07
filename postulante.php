@@ -56,9 +56,12 @@
                 <option value="contable">Contable</option>
                 <option value="rrhh">RRHH</option>
             </select><br><br>
-                   
+            <label for="archivo">carga un archivo:</label>
+            <input type="file" name="archivo" id="archivo">
+            <br>
+                             
                 
-                <input class="enviar" type="submit" value="Enviar">
+            <input class="enviar" type="submit" value="Enviar">
         </div>
     </form>
     

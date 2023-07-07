@@ -28,9 +28,6 @@ class Persona {
               <div class="item">
                   <img src="img/unju-logo.png" alt="">
               </div>
-              <div id="title">
-                  <h3>Empleados</h3>
-              </div>
               <div id="argpro">
                   <img src="img/arg programa.png" alt="">
               </div>
@@ -45,6 +42,26 @@ class Persona {
       return $html;
   }
   
+}
+
+class Postulante extends Persona {
+  private $puesto;
+
+  public function __construct($nombre, $fecha_nacimiento, $direccion, $sexo, $disponibilidad, $puesto) {
+    parent::__construct($nombre, $fecha_nacimiento, $direccion, $sexo);
+    $this->puesto = $puesto;
+  }
+
+  public function calcularEdad() {
+    $fecha_actual = new DateTime();
+    $fecha_nacimiento = new DateTime($this->fecha_nacimiento);
+    $diferencia = $fecha_actual->diff($fecha_nacimiento);
+    return $diferencia->y;
+  }
+
+  public function getPuesto(){
+    return $this->puesto;
+  }
 }
 
 class Empleado extends Persona {
@@ -155,10 +172,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $sexo = $_POST['sexo'];
   $disponibilidad = $_POST['disponibilidad'];
   $puesto = $_POST['clase'];
-  $fecha_ingreso = $_POST['ingreso'];
+  
 
   // Verifica si es un empleado o un postulante
-  if (isset($_POST['disponibilidad']) && isset($_POST['clase'])) {
+  if (!empty($fecha_ingreso)) {
+    $fecha_ingreso = $_POST['ingreso'];
     // Es un empleado
     $empleado = new Empleado($nombre, $fecha_nacimiento, $direccion, $sexo, $disponibilidad, $puesto, $fecha_ingreso);
 
@@ -167,12 +185,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo $empleado->imprimirObjeto();
     echo "</div>";
   } else {
-    // Es un postulante
-    $postulante = new Empleado($nombre, $fecha_nacimiento, $direccion, $sexo, null, null, null);
+    
+    $postulante = new Postulante($nombre, $fecha_nacimiento, $direccion, $sexo, null, null, null);
 
     // Imprime detalles del postulante
     echo "<div>";
-    echo "El postulante : ". $nombre . "se inscribió en el puesto: " . $puesto;   
+    echo "El postulante ". $nombre . "se inscribió en el puesto de " . $puesto . " y tiene: ". $postulante->calcularEdad() . " años";
+    echo "<br> <br>";
+    echo "<a href='postulante.php'>Volver</a>";
+    echo "<br> <br>";
+    echo "<a href='index.html'>Inicio</a>";     
     echo "</div>";
   }
 
