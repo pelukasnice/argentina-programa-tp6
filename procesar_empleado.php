@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
 <?php
@@ -22,13 +23,28 @@ class Persona {
     }
   
     public function imprimirObjeto() {
-      $html = "<h2>Datos de la Persona</h2>";
+      $html = '<header class="container">
+          <div class="flex-container">
+              <div class="item">
+                  <img src="img/unju-logo.png" alt="">
+              </div>
+              <div id="title">
+                  <h3>Empleados</h3>
+              </div>
+              <div id="argpro">
+                  <img src="img/arg programa.png" alt="">
+              </div>
+          </div>
+      </header>';
+      
+      $html .= "<h2>Datos de la Persona</h2>";
       $html .= "<p>Nombre: $this->nombre</p>";
       $html .= "<p>Fecha de Nacimiento: $this->fecha_nacimiento</p>";
       $html .= "<p>Dirección: $this->direccion</p>";
       $html .= "<p>Sexo: $this->sexo</p>";
       return $html;
-    }
+  }
+  
 }
 
 class Empleado extends Persona {
@@ -146,26 +162,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Es un empleado
     $empleado = new Empleado($nombre, $fecha_nacimiento, $direccion, $sexo, $disponibilidad, $puesto, $fecha_ingreso);
 
-    // Imprimir detalles del empleado
-    echo "<div class='persona_container card'>";
+    // Imprime detalles del empleado
+    echo "<div>";
     echo $empleado->imprimirObjeto();
     echo "</div>";
   } else {
     // Es un postulante
     $postulante = new Empleado($nombre, $fecha_nacimiento, $direccion, $sexo, null, null, null);
 
-    // Imprimir detalles del postulante
-    echo "<div class='persona_container card'>";
-    echo $postulante->imprimirObjeto();
+    // Imprime detalles del postulante
+    echo "<div>";
+    echo "El postulante : ". $nombre . "se inscribió en el puesto: " . $puesto;   
     echo "</div>";
   }
 
-  // Verificar si se ha enviado el formulario para el cálculo del sueldo
+  // Verifica si se ha enviado el formulario para el cálculo del sueldo
   if (isset($_POST['clase']) && isset($_POST['cantidad'])) {
     $clase = $_POST['clase'];
     $cantidad = $_POST['cantidad'];
 
-    // Crear una instancia del empleado correspondiente según la clase seleccionada
+    // Crea una instancia del empleado correspondiente según la clase seleccionada
     $empleado = null;
     switch (strtolower($clase)) {
       case 'informatica':
@@ -183,19 +199,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Calcular el sueldo
+    // Calcula el sueldo
     $sueldo = $empleado->calcularSueldo();
 
-    // Mostrar el resultado
+    // Muestra el resultado
     echo "El sueldo del empleado es: " . $sueldo;
+    echo "<br> <br>";
+    echo "<a href='empleado.php'>Volver</a>";
+    echo "<br> <br>";
+    echo "<a href='index.html'>Inicio</a>";
   }
 }
 ?>
 
-
-  
- 
-  
-    
 </body>
 </html>

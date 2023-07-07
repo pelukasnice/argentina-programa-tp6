@@ -13,7 +13,7 @@
                 <img src="img/unju-logo.png" alt="">
             </div>
             <div id="title">
-                <h3>TP N°6 - Diego Olguin </h3>
+                <h3>Postulante</h3>
             </div>
             <div id="argpro">
                 <img src="img/arg programa.png" alt="">
@@ -49,17 +49,14 @@
                 <option value="mediotiempo">Medio Tiempo</option>
             </select><br><br>
 
-            <label for="puesto">Puesto:</label>
-            <select id="puesto" name="puesto" required>
+            <label for="clase">Puesto:</label>
+            <select id="clase" name="clase" required>
                 <option value="">--Seleccionar--</option>
                 <option value="informatica">Informática</option>
                 <option value="contable">Contable</option>
                 <option value="rrhh">RRHH</option>
             </select><br><br>
-
-            <label for="fecha_nacimiento">Fecha de Ingreso:</label>
-                <input type="date"  name="ingreso" required><br><br>
-            
+                   
                 
                 <input class="enviar" type="submit" value="Enviar">
         </div>

@@ -13,15 +13,15 @@
                 <img src="img/unju-logo.png" alt="">
             </div>
             <div id="title">
-                <h3>TP N°6 - Diego Olguin </h3>
+                <h3>Empleado </h3>
             </div>
             <div id="argpro">
                 <img src="img/arg programa.png" alt="">
             </div>
         </div>
     </header>
-
-    <<div class="form-container">
+<body>
+    <h3>Ingresar los datos de filiacion del empleado y tambien cantidad expedientes, aplicaciones y/o proyectos dependiendo del puesto para calcular el sueldo correspondiente.</h3> 
     <div class="form-container">
     <form action="procesar_empleado.php" method="POST" enctype="multipart/form-data">
         <div class="contenedor-form">
@@ -68,11 +68,4 @@
         </div>
     </form>
 </div>
-
-</div>
-
-
-    
-</div>
 </body>
-</html>
