@@ -172,11 +172,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $sexo = $_POST['sexo'];
   $disponibilidad = $_POST['disponibilidad'];
   $puesto = $_POST['clase'];
+  $fecha_ingreso = $_POST['ingreso'];
   
 
   // Verifica si es un empleado o un postulante
   if (!empty($fecha_ingreso)) {
-    $fecha_ingreso = $_POST['ingreso'];
+    
     // Es un empleado
     $empleado = new Empleado($nombre, $fecha_nacimiento, $direccion, $sexo, $disponibilidad, $puesto, $fecha_ingreso);
 
